@@ -1,0 +1,40 @@
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 65px;
+  height: 20px;
+  position: relative;
+}
+.loader:before {
+  content: "";
+  position: absolute;
+  border-radius: 50px;
+  box-shadow: 0 0 0 3px inset #FFC107;
+  animation: l3 0.75s infinite alternate;
+}
+@keyframes l3 {
+  0% {
+    inset: 0 35px 0 0;
+  }
+  50% {
+    inset: 0 0 0 0;
+  }
+  100% {
+    inset: 0 0 0 35px;
+  }
+}
+
+.animationCategories {
+  height: 80px !important;
+  transition: all ease 0.3s;
+}
+
+.toAnimate {
+  height: 0px;
+  overflow-y: hidden;
+  transition: all ease 0.3s;
+}
+
+.microMenu {
+  transition: all ease 0.3s;
+  overflow-y: hidden;
+}

@@ -14,41 +14,64 @@ function App() {
   const today = new Date().toLocaleDateString('en-CA')
  
   useEffect(() => {
+    const apiKeys = ['818d2977780ccd5c567026b0b3b5488b', '700bb2a56cf1f2ef193b2dc58a4d9912']; // Lista de claves
+    let currentKeyIndex = 0; // Índice para la clave actual
+  
     const obtenerNoticias = async () => {
-      let url = 'http://api.mediastack.com/v1/news?access_key=700bb2a56cf1f2ef193b2dc58a4d9912&limit=100&languages=en';
-
-      if(menuSelected==='today') {
-        url+= `&date=${today}`
+      let url = `http://api.mediastack.com/v1/news?access_key=${apiKeys[currentKeyIndex]}&limit=100&languages=en`;
+  
+      if (menuSelected === 'today') {
+        url += `&date=${today}`;
       }
       if (category) {
         url += `&categories=${category}`;
       }
-
-      if(menuSelected === 'favorities') {
-        let favorites = await JSON.parse(localStorage.getItem('favorites'))
-        setNoticias(favorites)
+  
+      if (menuSelected === 'favorities') {
+        let favorites = await JSON.parse(localStorage.getItem('favorites'));
+        setNoticias(favorites);
         return;
       }
-
-      try {
-        const respuesta = await fetch(url);
-
-        if (!respuesta.ok) {
-          throw new Error(`Error en la red: ${respuesta.status}`);
+  
+      let successfulFetch = false;
+  
+      while (!successfulFetch && currentKeyIndex < apiKeys.length) {
+        try {
+          const respuesta = await fetch(url);
+  
+          if (!respuesta.ok) {
+            throw new Error(`Error en la red: ${respuesta.status}`);
+          }
+  
+          const datos = await respuesta.json();
+          setNoticias(datos.data); // Asigna los artículos al estado
+          successfulFetch = true; // Marcar como éxito
+        } catch (error) {
+          console.log(`Fallo con clave: ${apiKeys[currentKeyIndex]}. Probando con otra...`);
+          currentKeyIndex++; // Intenta con la siguiente clave en caso de error
+  
+          if (currentKeyIndex < apiKeys.length) {
+            // Actualiza la URL con la nueva clave
+            url = `http://api.mediastack.com/v1/news?access_key=${apiKeys[currentKeyIndex]}&limit=100&languages=en`;
+            if (menuSelected === 'today') {
+              url += `&date=${today}`;
+            }
+            if (category) {
+              url += `&categories=${category}`;
+            }
+          } else {
+            setError('Todas las claves de API fallaron.');
+            break;
+          }
+        } finally {
+          setCargando(false); // Cambia el estado de carga
         }
-
-        const datos = await respuesta.json();
-        setNoticias(datos.data); // Asigna los artículos al estado
-      } catch (error) {
-        setError(error.message); // Maneja el error
-      } finally {
-        setCargando(false); // Cambia el estado de carga
       }
     };
-
+  
     obtenerNoticias();
   }, [category, menuSelected, activeMicroMenu, search]); // Ahora escucha cambios en 'category' y 'menuSelected'
-
+  
   const handleCategorySelection = (cat) => {
     setCategory(cat); // Actualiza correctamente la categoría
   };

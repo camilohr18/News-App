@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://camilohr18.github.io/Api-rest-consumer/",
+  "homepage": "https://camilohr18.github.io/News-App/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

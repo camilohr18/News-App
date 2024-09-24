@@ -22,7 +22,7 @@ const Noticias = ({noticiaArray, onCatSelected, menuSelected, activeMicroMenu, m
                         <div className="min-h-[390px]">
                             <div className='h-[15rem] rounded-t-xl' 
                             style={{
-                                backgroundImage: noticia.image ? 'url('+noticia.image+')' : 'url(../logo-noticias.png)', 
+                                backgroundImage: noticia.image ? 'url('+noticia.image+')' : 'url(logo-noticias.png)', 
                                 backgroundSize: noticia.image ? 'cover':'82px', 
                                 backgroundPosition: 'center', 
                                 backgroundRepeat: noticia.image ? 'no-repeat': 'repeat',

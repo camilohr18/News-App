@@ -18,7 +18,7 @@ function App() {
     let currentKeyIndex = 0; // Índice para la clave actual
   
     const obtenerNoticias = async () => {
-      let url = `http://api.mediastack.com/v1/news?access_key=${apiKeys[currentKeyIndex]}&limit=100&languages=en`;
+      let url = `https://api.mediastack.com/v1/news?access_key=${apiKeys[currentKeyIndex]}&limit=100&languages=en`;
   
       if (menuSelected === 'today') {
         url += `&date=${today}`;
@@ -52,7 +52,7 @@ function App() {
   
           if (currentKeyIndex < apiKeys.length) {
             // Actualiza la URL con la nueva clave
-            url = `http://api.mediastack.com/v1/news?access_key=${apiKeys[currentKeyIndex]}&limit=100&languages=en`;
+            url = `https://api.mediastack.com/v1/news?access_key=${apiKeys[currentKeyIndex]}&limit=100&languages=en`;
             if (menuSelected === 'today') {
               url += `&date=${today}`;
             }
@@ -60,7 +60,6 @@ function App() {
               url += `&categories=${category}`;
             }
           } else {
-            setError('Todas las claves de API fallaron.');
             break;
           }
         } finally {

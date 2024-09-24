@@ -4,7 +4,7 @@ const SideBottomMenu = ({onMenuSelect, menuSelected, searchAction}) => {
     return(
         <>
             <aside className="bg-slate-700 rounded-r-2xl w-[20rem] h-screen hidden lg:block sticky top-0 left-0">
-                <img src="../logo-noticias.png" className="w-3/12 pt-4 ps-4"/>
+                <img src="logo-noticias.png" className="w-3/12 pt-4 ps-4"/>
                 <div className="p-4 max-w-md mx-auto relative">
                     <div className="absolute inset-y-0 start-4 flex items-center ps-3 pointer-events-none">
                         <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
